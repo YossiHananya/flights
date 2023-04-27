@@ -1,0 +1,7 @@
+source:
+  directory_path: "data"
+  resource_path: "flights.csv"
+
+success_conditions:
+  min_duration_time_minutes: 180
+  limit_per_day: 20
