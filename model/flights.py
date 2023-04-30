@@ -64,7 +64,6 @@ class Flights:
         
         return delta.total_seconds() / 60
         
-        
     def _update(self):
         flights = pd.read_csv(self.file_path)
         flights.sort_values("Arrival", inplace = True)
@@ -85,8 +84,8 @@ class Flights:
             flights.at[index,'success'] = \
                 flight_duration_minutes >= self.min_duration_time_minutes and \
                 prev_success_flights < self.limit_per_day
-
-        flights.to_csv(self.file_path)
+                
+        flights.to_csv(self.file_path, index=False)
         
     
     def get_flight_info(self, flight_id):        
@@ -107,7 +106,7 @@ class Flights:
             ):
                 continue
             
-            flights_df = flights_df.append(flight)
+            flights_df.loc[len(flights_df)] = flight
         
         flights_df.to_csv(self.file_path)
         self._update()

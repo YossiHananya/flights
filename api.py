@@ -1,4 +1,5 @@
-from flask import Flask
+import json
+from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from model.flights import Flights as flights_model
 
@@ -24,9 +25,12 @@ class Flights(Resource):
         return data, 200
 
     def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('flights', required=True, location='args')
-        args = parser.parse_args()
-        model.add_new_flights(flights=args['flights'])
+        body_response = json.loads(request.data.decode())
+        
+        # parser = reqparse.RequestParser()
+        # parser.add_argument('flights', required=True)
+        # args = parser.parse_args()
+        
+        model.add_new_flights(flights=body_response['flights'])
         
         return {}, 200
