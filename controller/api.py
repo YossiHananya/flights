@@ -26,11 +26,6 @@ class Flights(Resource):
 
     def post(self):
         body_response = json.loads(request.data.decode())
-        
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('flights', required=True)
-        # args = parser.parse_args()
-        
         model.add_new_flights(flights=body_response['flights'])
         
         return {}, 200

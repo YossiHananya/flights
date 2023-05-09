@@ -1,4 +1,5 @@
-from api import init_app
+#! /usr/bin/python
+from controller.api import init_app
 
 
 if __name__ == "__main__":

@@ -55,7 +55,7 @@ class Flights:
             makedirs(dir_path)
         
         df = pd.DataFrame(columns=['flight ID', 'Arrival', 'Departure' , 'success'])
-        df.to_csv(self.file_path, index=False)
+        self._save_to_csv(df=df)
     
     def _calc_flight_duration(self, flight):
         arrival_time = datetime.strptime(flight["Arrival"].strip(), "%H:%M")
@@ -85,8 +85,10 @@ class Flights:
                 flight_duration_minutes >= self.min_duration_time_minutes and \
                 prev_success_flights < self.limit_per_day
                 
-        flights.to_csv(self.file_path, index=False)
-        
+        self._save_to_csv(flights)
+    
+    def _save_to_csv(self, df):
+        df.to_csv(self.file_path, index=False)
     
     def get_flight_info(self, flight_id):        
         flights = pd.read_csv(self.file_path)
@@ -108,6 +110,6 @@ class Flights:
             
             flights_df.loc[len(flights_df)] = flight
         
-        flights_df.to_csv(self.file_path)
+        self._save_to_csv(df=flights_df)
         self._update()
         
