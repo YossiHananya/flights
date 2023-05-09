@@ -54,8 +54,8 @@ class Flights:
         if not path.exists(dir_path):
             makedirs(dir_path)
         
-        df = pd.DataFrame(['flight ID', 'Arrival', 'Departure' , 'success'])
-        df.to_csv(self.file_path)
+        df = pd.DataFrame(columns=['flight ID', 'Arrival', 'Departure' , 'success'])
+        df.to_csv(self.file_path, index=False)
     
     def _calc_flight_duration(self, flight):
         arrival_time = datetime.strptime(flight["Arrival"].strip(), "%H:%M")
